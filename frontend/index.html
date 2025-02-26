@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    <script>
+        async function fetchTime() {
+            try {
+                let response = await fetch('http://localhost:3020/time');
+                let text = await response.text();
+                document.getElementById('time').innerText = text;
+            } catch (error) {
+                document.getElementById('time').innerText = "Erreur lors du chargement";
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Bienvenue</h1>
+<button onclick="fetchTime()">Obtenir l'heure</button>
+<p id="time">Cliquez sur le bouton pour obtenir l'heure</p>
+</body>
+</html>

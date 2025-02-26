@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./backend
+    deploy:
+      replicas: 3
+    networks:
+      - backend
+      - proxy
+    depends_on:
+      - db
+    ports:
+      - "3020:3000"
+
+  reverse-proxy:
+    image: nginx:1.27
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./reverse-proxy.conf:/etc/nginx/templates/default.conf.template
+    networks:
+      - proxy
+    depends_on:
+      - app
+      - static
+
+  db:
+    image: redis:7
+    restart: unless-stopped
+    volumes:
+      - data_redis:/data
+    networks:
+      - backend
+
+  static:
+    build: ./frontend
+    networks:
+      - proxy
+
+volumes:
+  data_redis:
+
+networks:
+  backend:
+  proxy:
