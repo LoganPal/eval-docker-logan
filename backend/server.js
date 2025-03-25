@@ -1,6 +1,7 @@
 const express = require('express');
 const { createClient } = require('redis');
 const os = require('os');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -26,8 +27,13 @@ redisClient.on('connect', () => {
 // Connexion au client Redis
 redisClient.connect().catch(console.error);
 
-app.get('/', async (req, res) => {
-    res.send(`Y'a rien a voir ici !!!!`);
+const frontendPath = path.join(__dirname, '../frontend');
+
+app.use(express.static(frontendPath));
+
+
+app.get('/',(req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 app.get('/time', async (req, res) => {

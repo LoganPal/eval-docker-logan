@@ -4,14 +4,16 @@ services:
   app:
     build: ./backend
     deploy:
-      replicas: 3
+      replicas: 1
+    volumes:
+      - ./frontend:/frontend
     networks:
       - backend
       - proxy
     depends_on:
       - db
     ports:
-      - "3020:3000"
+      - "3000:3000"
 
   reverse-proxy:
     image: nginx:1.27

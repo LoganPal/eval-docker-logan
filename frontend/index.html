@@ -7,7 +7,7 @@
     <script>
         async function fetchTime() {
             try {
-                let response = await fetch('http://localhost:3020/time');
+                let response = await fetch('http://localhost:3000/time');
                 let text = await response.text();
                 document.getElementById('time').innerText = text;
             } catch (error) {
