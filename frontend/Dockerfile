@@ -6,7 +6,10 @@ RUN apt-get update && apt-get install -y git
 WORKDIR /usr/share/nginx/html
 
 # Clone ton repository frontend
-RUN git clone https://github.com/LoganPal/eval-docker-logan.git .
+RUN rm -rf ./* && \
+    git clone https://github.com/LoganPal/eval-docker-logan.git . && \
+    cp -r frontend/* . && \
+    rm -rf frontend
 
 EXPOSE 80
 
