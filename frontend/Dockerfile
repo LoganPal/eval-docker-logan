@@ -1,7 +1,13 @@
 FROM nginx:1.27
-RUN apk add --no-cache git
+
+# Installer git (Debian-based image)
+RUN apt-get update && apt-get install -y git
+
 WORKDIR /usr/share/nginx/html
-COPY index.html .
-RUN git clone https://github.com/LoganPal/eval-docker-logan .
+
+# Clone ton repository frontend
+RUN git clone https://github.com/LoganPal/eval-docker-logan.git .
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,9 +1,15 @@
-FROM node:22
-RUN apk add --no-cache git
+FROM node:20
+
+RUN apt-get update && apt-get install -y git
+
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN git clone https://github.com/LoganPal/eval-docker-logan .
+
+RUN git clone https://github.com/LoganPal/eval-docker-logan.git . && \
+    cp -r backend/* . && \
+    rm -rf backend
+
 RUN npm install
-COPY . .
+
 EXPOSE 3000
+
 CMD ["node", "server.js"]
