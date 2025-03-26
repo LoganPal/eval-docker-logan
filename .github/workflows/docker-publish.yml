@@ -30,7 +30,11 @@ jobs:
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/docker-evaluation-frontend:latest ./frontend
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/docker-evaluation-frontend:latest
 
-      - name: Notify on Discord (Bonus)
-        if: success()
+      - name: Notify Discord about new Docker image
         run: |
-          curl -H "Content-Type: application/json" -X POST -d '{\"content\": \"🚀 Nouvelle image Docker disponible !\"}' ${{ secrets.DISCORD_WEBHOOK }}
+          curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+          -H "Content-Type: application/json" \
+          -d '{
+            "content": "🎉 New Docker image pushed! The backend and frontend images for the NestJS API and React application are now available on Docker Hub. 🚀",
+            "username": "Docker CI Bot"
+          }'
