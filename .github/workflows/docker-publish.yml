@@ -32,9 +32,10 @@ jobs:
 
       - name: Notify Discord about new Docker image
         run: |
-          curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+          curl -X POST ${{ secrets.DISCORD_WEBHOOK}} \
           -H "Content-Type: application/json" \
           -d '{
-            "content": "🎉 New Docker image pushed! The backend and frontend images for the NestJS API and React application are now available on Docker Hub. 🚀",
-            "username": "Docker CI Bot"
+            "content": "🎉 New Docker image pushed! 🚀",
+            "username": "Docker CI Bot",
+            "avatar_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Fngf_art%2Fp%2FDGJ9-hJvE7d%2F%3Flocale%3Dfr_FR%26hl%3Dcs&psig=AOvVaw3Kvp0qe-F7UrBmhlNJax_w&ust=1743078445463000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjqpbDfp4wDFQAAAAAdAAAAABAJ"
           }'
